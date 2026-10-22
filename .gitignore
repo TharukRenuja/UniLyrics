@@ -1,0 +1,14 @@
+/target/
+__pycache__/
+*.pyc
+/bindings/javascript/dist/
+/bindings/swift/.build/
+/bindings/java/build/
+/bindings/kotlin/build/
+/.private/
+/.vscode/
+/.idea/
+/.gradle/
+*.log
+*.jks
+*.keystore

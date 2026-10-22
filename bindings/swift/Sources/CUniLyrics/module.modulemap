@@ -1,0 +1,5 @@
+module CUniLyrics [system] {
+    header "include/unilyrics.h"
+    link "unilyrics_ffi"
+    export *
+}

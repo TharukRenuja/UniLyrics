@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.20)
+project(UniLyrics VERSION 0.1.0 LANGUAGES NONE)
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+set(UNILYRICS_NATIVE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../target/release" CACHE PATH "Directory containing the built Rust library")
+set(UNILYRICS_IMPORT_LIBRARY_NAME "")
+if(WIN32)
+    set(UNILYRICS_LIBRARY_NAMES unilyrics_ffi.dll)
+    set(UNILYRICS_RUNTIME_DESTINATION "${CMAKE_INSTALL_BINDIR}")
+    find_file(UNILYRICS_IMPORT_LIBRARY NAMES unilyrics_ffi.dll.lib unilyrics_ffi.lib libunilyrics_ffi.dll.a
+        PATHS "${UNILYRICS_NATIVE_DIR}" NO_DEFAULT_PATH REQUIRED)
+    get_filename_component(UNILYRICS_IMPORT_LIBRARY_NAME "${UNILYRICS_IMPORT_LIBRARY}" NAME)
+    install(FILES "${UNILYRICS_IMPORT_LIBRARY}" DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+elseif(APPLE)
+    set(UNILYRICS_LIBRARY_NAMES libunilyrics_ffi.dylib)
+    set(UNILYRICS_RUNTIME_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+else()
+    set(UNILYRICS_LIBRARY_NAMES libunilyrics_ffi.so)
+    set(UNILYRICS_RUNTIME_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+endif()
+find_file(UNILYRICS_LIBRARY NAMES ${UNILYRICS_LIBRARY_NAMES}
+    PATHS "${UNILYRICS_NATIVE_DIR}" NO_DEFAULT_PATH REQUIRED)
+get_filename_component(UNILYRICS_LIBRARY_NAME "${UNILYRICS_LIBRARY}" NAME)
+install(FILES "${UNILYRICS_LIBRARY}" DESTINATION "${UNILYRICS_RUNTIME_DESTINATION}")
+install(FILES unilyrics.h ../cpp/unilyrics.hpp DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+configure_package_config_file(UniLyricsConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/UniLyricsConfig.cmake"
+    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/UniLyrics"
+    PATH_VARS CMAKE_INSTALL_LIBDIR CMAKE_INSTALL_INCLUDEDIR UNILYRICS_RUNTIME_DESTINATION)
+write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/UniLyricsConfigVersion.cmake" COMPATIBILITY SameMajorVersion)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/UniLyricsConfig.cmake" "${CMAKE_CURRENT_BINARY_DIR}/UniLyricsConfigVersion.cmake"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/UniLyrics")
+
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/../../LICENSE" "${CMAKE_CURRENT_SOURCE_DIR}/../../THIRD_PARTY_NOTICES.md"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/unilyrics")
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../licenses/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/unilyrics/licenses")

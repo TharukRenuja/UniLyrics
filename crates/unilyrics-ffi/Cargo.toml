@@ -1,0 +1,15 @@
+[package]
+name = "unilyrics-ffi"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+unilyrics = { path = "../unilyrics" }
+serde_json.workspace = true

@@ -1,0 +1,27 @@
+{
+  "name": "unilyrics",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./core.wasm": "./dist/core.wasm"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "dist/core.wasm",
+    "dist/licenses",
+    "dist/THIRD_PARTY_NOTICES.md"
+  ],
+  "license": "MIT",
+  "author": "Tharuk Renuja",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TharukRenuja/UniLyrics.git",
+    "directory": "bindings/javascript"
+  }
+}

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=70.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unilyrics"
+version = "0.1.0"
+description = "Experimental offline UniLyrics SDK backed by a shared Rust engine"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "Tharuk Renuja" }]
+
+[project.urls]
+Repository = "https://github.com/TharukRenuja/UniLyrics"
+
+[tool.setuptools]
+packages = ["unilyrics"]
+
+[tool.setuptools.package-data]
+unilyrics = ["py.typed"]

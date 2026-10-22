@@ -1,0 +1,17 @@
+@PACKAGE_INIT@
+include(CMakeFindDependencyMacro)
+find_dependency(Threads)
+if(NOT TARGET UniLyrics::unilyrics)
+    add_library(UniLyrics::unilyrics SHARED IMPORTED)
+    set_target_properties(UniLyrics::unilyrics PROPERTIES
+        IMPORTED_LOCATION "@PACKAGE_UNILYRICS_RUNTIME_DESTINATION@/@UNILYRICS_LIBRARY_NAME@"
+        INTERFACE_INCLUDE_DIRECTORIES "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+    if(NOT "@UNILYRICS_IMPORT_LIBRARY_NAME@" STREQUAL "")
+        set_target_properties(UniLyrics::unilyrics PROPERTIES
+            IMPORTED_IMPLIB "@PACKAGE_CMAKE_INSTALL_LIBDIR@/@UNILYRICS_IMPORT_LIBRARY_NAME@")
+    endif()
+    add_library(UniLyrics::cpp INTERFACE IMPORTED)
+    set_target_properties(UniLyrics::cpp PROPERTIES
+        INTERFACE_LINK_LIBRARIES "UniLyrics::unilyrics;Threads::Threads"
+        INTERFACE_COMPILE_FEATURES cxx_std_17)
+endif()
