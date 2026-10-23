@@ -12,3 +12,6 @@ __pycache__/
 *.log
 *.jks
 *.keystore
+
+/bindings/dotnet/**/bin/
+/bindings/dotnet/**/obj/

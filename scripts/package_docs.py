@@ -21,4 +21,4 @@ def copy_public_docs(root: Path, sdk: Path) -> None:
 def copy_examples(root: Path, sdk: Path) -> None:
     """Include source examples without local SDK paths, IDE state or build outputs."""
     shutil.copytree(root / "examples", sdk / "examples", ignore=shutil.ignore_patterns(
-        "__pycache__", "*.pyc", ".gradle", ".kotlin", ".idea", "build", "local.properties"))
+        "__pycache__", "*.pyc", ".gradle", ".kotlin", ".idea", "build", "bin", "obj", "local.properties"))

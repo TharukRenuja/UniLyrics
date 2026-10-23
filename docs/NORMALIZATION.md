@@ -26,6 +26,7 @@ Range failures use `INVALID_TIME` or `INVALID_OFFSET`. Noninteger/wrong-type off
 
 | SDK | Call |
 |---|---|
+| C# / .NET | `lyrics.Normalize(document, -250_000)` |
 | Rust | `unilyrics::normalize(&document, -250_000)?` |
 | JavaScript/TypeScript | `sdk.normalize(document, -250000)` |
 | Python | `sdk.normalize(document, -250_000)` |

@@ -1,6 +1,6 @@
 # Custom format adapters
 
-All ten SDK targets (Rust, JavaScript, TypeScript, Python, Go, Java, Kotlin, Swift, C and C++) support application-owned custom parsers and exporters through scoped registries. The C++ wrapper manages native registry and callback ownership with RAII. A callback cannot be registered by sending executable code through the native/WASM JSON protocol.
+All 11 SDK targets (Rust, JavaScript, TypeScript, Python, Go, Java, Kotlin, Swift, C, C++ and C#/.NET) support application-owned custom parsers and exporters through scoped registries. The C++ wrapper manages native registry and callback ownership with RAII. A callback cannot be registered by sending executable code through the native/WASM JSON protocol.
 
 ## Registration and dispatch
 
@@ -317,3 +317,18 @@ Host wrappers call three stateless operations in Rust:
 | `verify_custom_export` | `document`, `result`, optional `roundtrip` document, optional `policy` | Export result with shared preservation diagnostics, or strict rejection |
 
 Unknown fields in callback result envelopes are rejected. A missing, null or invalid `roundtrip` cannot establish preservation. The SDK host owns callback execution and supplies the reparse; Rust validates and compares the supplied canonical models. This is not proof against a dishonest host or conformance certification for a proprietary format. No callback functions, code, or plugin modules cross the JSON boundary.
+
+## C# and .NET
+
+Create a `Registry` with a `Lyrics` instance and register synchronous `Adapter` callbacks in the `x-` namespace.
+
+```csharp
+var registry = new Registry(lyrics);
+registry.Register("x-example", new Adapter {
+    Parser = text => lyrics.Parse(text, Format.Plain),
+    Detector = text => text.StartsWith("EXAMPLE:")
+});
+var result = registry.Parse("EXAMPLE: Hello", "x-example");
+```
+
+The core validates custom results. Primary callback exceptions propagate; a failed reparse during export becomes a conversion loss, so strict policy cannot silently accept it. Exporters receive an independent canonical document. Registry lookups are synchronized, callbacks run outside that lock, and captured state remains the application's responsibility. See the [.NET guide](../bindings/dotnet/README.md).

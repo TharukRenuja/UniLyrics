@@ -11,7 +11,7 @@
 
 Lyrics arrive as plain text, timestamped lines, timed words, subtitles and rich vocal documents. UniLyrics brings them into one structured model so your app can work with the content instead of maintaining a different parser for every format.
 
-One Rust engine powers bindings for **Rust, JavaScript, TypeScript, Python, Go, Java, Kotlin, Swift, C and C++**. Parsing happens locally. There is no lyrics service, account or server to run.
+A shared Rust engine powers bindings for **11 languages**: Rust, JavaScript, TypeScript, Python, Go, Java, Kotlin, Swift, C, C++ and C#/.NET. Parsing happens locally. There is no lyrics service, account or server to run.
 
 ## Parse once. Work with the result.
 
@@ -72,9 +72,25 @@ Support follows [documented format profiles](docs/FORMATS.md), rather than every
 | Java / Kotlin | JVM facade and JNI; Android AAR |
 | Go | Typed API through cgo |
 | Swift | SwiftPM wrapper with Codable models |
+| C# / .NET | Typed .NET 10 API and native engine through interop |
 | C / C++ | C ABI and C++17 ownership wrapper |
 
 Start with [installation](docs/INSTALLATION.md), follow your [language guide](docs/LANGUAGES.md), or open a [complete example](examples/README.md).
+
+## C# and .NET
+
+Use the same engine from a .NET 10 application with typed documents, structured errors and native memory cleanup:
+
+```csharp
+using UniLyrics;
+
+using var lyrics = new Lyrics();
+var parsed = lyrics.Parse("[00:01.25]Hello world", Format.Lrc);
+var converted = lyrics.Export(parsed.Document, Format.Plain);
+Console.WriteLine(converted.Output); // Hello world
+```
+
+Install a locally built NuGet package or reference the source project and provide the matching native engine. See the [.NET guide](bindings/dotnet/README.md) for setup and custom adapters. Packages are not published on NuGet yet; Windows native execution remains unverified.
 
 ## Availability
 

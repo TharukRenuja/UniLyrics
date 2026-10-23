@@ -1,6 +1,6 @@
 # Preservation bundles
 
-The initial preserve operation exports compatible target text alongside a versioned canonical snapshot. Rust exposes `export_preserved(document, format, options)` and `restore_preserved(output, format, sidecar)`. SDKs can use the shared protocol or the helpers described below. Preservation source and rebuilt installed-consumer checks pass across all ten languages on Linux x86_64, including the serializer-budget fixes and their installed regression cases. Current additional platform checks and remaining release gates are tracked in [platform evidence](PLATFORMS.md).
+The initial preserve operation exports compatible target text alongside a versioned canonical snapshot. Rust exposes `export_preserved(document, format, options)` and `restore_preserved(output, format, sidecar)`. SDKs can use the shared protocol or the helpers described below. The helpers are available across the language bindings; see [platform requirements](PLATFORMS.md) for distribution availability.
 
 ```json
 {"op":"export_preserved","document":{"version":1,"cues":[]},"format":"plain","options":{"profile":"full"}}
@@ -45,3 +45,7 @@ Java `UniLyrics` and Kotlin `Lyrics` expose `exportPreserved` and `restorePreser
 C exposes `unilyrics_export_preserved(document, length, format, options, options_length)` and `unilyrics_restore_preserved(output, length, format, sidecar, sidecar_length)`. Formats use the existing codes. Empty options `(NULL, 0)` select full; empty output may also be `(NULL, 0)`, but sidecar JSON must be non-null. Input buffers are borrowed for the call. Returned JSON envelopes are owned by the library and must be released exactly once with `unilyrics_free`.
 
 C++ exposes `unilyrics::export_preserved(document_json, format, options_json="{}")` and `unilyrics::restore_preserved(output, format, sidecar_json)`. Both return owned `std::string` JSON envelopes, freeing native responses automatically. Use your JSON library to extract/save the sidecar object; restore takes that object, not the full export-result envelope. Canonical models remain JSON interfaces in C/C++.
+
+## C# and .NET
+
+`Lyrics.ExportPreserved(document, format, options)` returns output, losses and a typed sidecar. Save output and sidecar together, then call `RestorePreserved(output, format, sidecar)`. The binding checks the encoded restore-request budget before returning a bundle. See the [.NET guide](../bindings/dotnet/README.md).

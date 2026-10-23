@@ -17,7 +17,7 @@ from build_support import ROOT, run
 def main():
     if sys.platform != "linux" or platform.machine() != "x86_64":
         raise SystemExit("Local packaging currently targets Linux x86_64 only.")
-    required = ["cargo", "cmake", "gcc", "javac", "jar", "kotlinc", "npm"]
+    required = ["cargo", "cmake", "gcc", "javac", "jar", "kotlinc", "npm", "dotnet"]
     absent = [name for name in required if not shutil.which(name)]
     if absent:
         raise SystemExit("Missing packaging tools: " + ", ".join(absent))
@@ -40,9 +40,9 @@ def main():
     run(["cmake", "-S", ROOT / "bindings/c", "-B", cmake,
          "-DUNILYRICS_NATIVE_DIR=" + str(native), "-DCMAKE_INSTALL_LIBDIR=lib"])
     run(["cmake", "--install", cmake, "--prefix", sdk])
-    for language in ["go", "swift", "android"]:
+    for language in ["go", "swift", "android", "dotnet"]:
         shutil.copytree(ROOT / "bindings" / language, sdk / "bindings" / language,
-                        ignore=shutil.ignore_patterns(".build", "build", "__pycache__"))
+                        ignore=shutil.ignore_patterns(".build", "build", "bin", "obj", "Tests", "__pycache__"))
     copy_public_docs(ROOT, sdk)
     shutil.copytree(ROOT / "spec", sdk / "spec")
     copy_examples(ROOT, sdk)
@@ -91,6 +91,8 @@ def main():
     run(["jar", "--update", "--file", output / f"unilyrics-kotlin-{version}.jar", "-C", ROOT, "LICENSE"])
     run(["cargo", "package", "--locked", "--offline", "--allow-dirty", "-p", "unilyrics"])
     shutil.copy2(ROOT / f"target/package/unilyrics-{version}.crate", output)
+    run([sys.executable, "-B", ROOT / "scripts/package_dotnet.py"])
+    shutil.copy2(ROOT / "target/packages-dotnet/UniLyrics.0.1.0.nupkg", output)
     shutil.copy2(ROOT / "THIRD_PARTY_NOTICES.md", output)
     shutil.copytree(ROOT / "licenses", output / "licenses")
     artifacts = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(output.iterdir()) if path.is_file()}

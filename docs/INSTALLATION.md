@@ -17,7 +17,7 @@ The engine is written to `target/release`: `libunilyrics_ffi.so` on Linux, `unil
 
 ## Build local packages
 
-The complete Linux x86_64 package builder requires Python 3.11+, pip, setuptools 70.1+, Rust, CMake, GCC, Node/npm, JDK 17 and Kotlin. Fetch Cargo dependencies first and install the WASM target:
+The complete Linux x86_64 package builder requires Python 3.11+, pip, setuptools 70.1+, Rust, CMake, GCC, Node/npm, JDK 17, Kotlin and the .NET 10 SDK. Fetch Cargo dependencies first and install the WASM target:
 
 ```sh
 rustup target add wasm32-unknown-unknown
@@ -82,6 +82,32 @@ var parsed = UniLyrics.parse("[00:01.25]Hello", "lrc");
 `load()` extracts bundled native libraries into a private temporary directory and loads them. That filesystem must permit native library loading. For application-managed libraries, call `UniLyrics.loadSystem()` (Kotlin: `Lyrics.loadSystem()`) with both the engine and JNI bridge on the native search path. The Java API includes typed Java 17 records as well as map/list methods. Kotlin uses the same model.
 
 Android uses its own AAR and platform JSON classes. Follow [Android integration](../bindings/android/README.md); do not add the desktop JSON-java JAR to an Android app.
+
+## C# and .NET
+
+The binding targets .NET 10. Install the .NET 10 SDK to build it; consuming applications must target .NET 10 or a compatible later framework. This is not a .NET Framework or Unity package.
+
+On Linux x64, build a local package containing the managed assembly and native engine:
+
+```sh
+python -B scripts/package_dotnet.py
+```
+
+To also bundle an existing Windows x64 engine, pass `--windows-native /absolute/path/to/unilyrics_ffi.dll`. The builder does not compile that Windows DLL; build it separately with the matching Rust sources. Outputs go to `target/packages-dotnet` and are not uploaded anywhere.
+
+From your application's directory:
+
+```sh
+dotnet add package UniLyrics --version 0.1.0 --source /absolute/path/to/packages-dotnet
+```
+
+```csharp
+using UniLyrics;
+using var lyrics = new Lyrics();
+var parsed = lyrics.Parse("[00:01.25]Hello", Format.Lrc);
+```
+
+The package must contain a native asset matching the application's OS and CPU. A Linux-only package cannot run on Windows. For source project references or external native libraries, pass an absolute path to `new Lyrics(...)` or set `UNILYRICS_LIBRARY`. Dispose the engine after the application finishes using it. See the [.NET guide](../bindings/dotnet/README.md) for model types, errors and custom formats.
 
 ## C and C++
 

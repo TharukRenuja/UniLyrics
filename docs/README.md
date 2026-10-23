@@ -8,7 +8,7 @@ Start with [getting started](GETTING_STARTED.md), then use [installation](INSTAL
 |---|---|
 | [Getting started](GETTING_STARTED.md) | Parse lyrics and handle conversions |
 | [Installation](INSTALLATION.md) | Build packages and configure your application |
-| [Language guides](LANGUAGES.md) | APIs and examples for all ten languages |
+| [Language guides](LANGUAGES.md) | APIs and examples for all 11 languages |
 | [Data model](DATA_MODEL.md) | Cues, segments, timing and vocal relationships |
 | [API](API.md) | Operations, results and errors |
 | [Player integration](PLAYER_INTEGRATION.md) | Connect lyrics to your playback clock |
@@ -16,6 +16,8 @@ Start with [getting started](GETTING_STARTED.md), then use [installation](INSTAL
 | [Conversion behavior](COMPATIBILITY.md) | Decide which output can represent your data |
 | [Platforms](PLATFORMS.md) | Requirements and distribution availability |
 | [Troubleshooting](TROUBLESHOOTING.md) | Resolve loading, linking and conversion errors |
+
+For C# projects, follow the [.NET 10 guide](../bindings/dotnet/README.md) for native loading and local NuGet setup.
 
 Advanced workflows: [normalization](NORMALIZATION.md), [profiles](PROFILES.md), [preservation](PRESERVATION.md) and [custom adapters](EXTENSIONS.md).
 

@@ -200,3 +200,17 @@ Responses still contain the JSON envelope; inspect its success/error fields. The
 ## Next steps
 
 [API workflows](API.md) covers all operations. Detailed guides include native method names for [normalization](NORMALIZATION.md), [profiles](PROFILES.md), [preservation](PRESERVATION.md), and [custom registries](EXTENSIONS.md).
+
+## C# and .NET
+
+Use the .NET 10 project or local NuGet package described in [installation](INSTALLATION.md#c-and-net).
+
+```csharp
+using UniLyrics;
+using var lyrics = new Lyrics();
+var parsed = lyrics.Parse("[00:01.25]Hello", Format.Lrc);
+Document document = parsed.Document;
+var converted = lyrics.Export(document, Format.Plain, Policy.Compatible);
+```
+
+`Lyrics` exposes typed records, JSON attributes, structured `LyricsException` errors and the shared operations. Keep an instance while your application needs it, then dispose it. The package loads its native asset through .NET; external engine paths can be supplied explicitly. See the [complete example](../examples/csharp.cs) and [.NET guide](../bindings/dotnet/README.md).

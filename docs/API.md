@@ -80,3 +80,7 @@ Managed helpers unwrap success results and surface failures using the language's
 ```
 
 Responses contain either `{"ok":true,"result":...}` or `{"ok":false,"error":{"code":"...","message":"..."}}`. See the [wire contract](../spec/README.md) for limits and ownership.
+
+## .NET naming
+
+The C# binding exposes `Parse`, `Detect`, `Export`, `Validate`, `Inspect`, `Normalize`, `Project`, `ExportProfile`, `ExportPreserved` and `RestorePreserved` on an owned `Lyrics` instance. Methods return typed records; `Process` provides lower-level JSON access. Errors from the shared engine become `LyricsException` with a `Code` property. Caller serialization and native loading failures retain ordinary .NET exception types. See [C# setup](INSTALLATION.md#c-and-net).

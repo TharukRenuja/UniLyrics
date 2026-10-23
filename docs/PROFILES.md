@@ -61,7 +61,7 @@ An empty list selects text/structure only; selecting all nine features is an ide
 
 Loss codes use the `PROFILE_*_DROPPED` namespace and summarize each affected category. Projection preserves a valid reference graph, but is an explicit editing operation: applications manually composing it with custom exporters must retain its diagnostics rather than discarding them and claiming preservation against the original document.
 
-The separate [preservation bundle API](PRESERVATION.md) retains original canonical data, including profile removals, in a sidecar. Convenience helpers are implemented in all ten languages; platform verification is tracked separately. Source-byte preservation is not claimed.
+The separate [preservation bundle API](PRESERVATION.md) retains original canonical data, including profile removals, in a sidecar. Convenience helpers are implemented in all 11 languages; platform verification is tracked separately. Source-byte preservation is not claimed.
 
 ## JavaScript/TypeScript and Python helpers
 
@@ -84,3 +84,7 @@ Both JVM SDKs expose `project` and `exportProfile` for maps and typed documents.
 C exposes `unilyrics_project(document, length, options, options_length)` and `unilyrics_export_profile(document, length, format, strict, options, options_length)`. Options are a UTF-8 JSON object; `(NULL, 0)` defaults to full. Every returned JSON envelope belongs to the library and must be freed with `unilyrics_free`. The existing format codes apply, and strict is 0 (compatible) or 1 (strict).
 
 C++ exposes `unilyrics::project(document_json, options_json="{}")` and `unilyrics::export_profile(document_json, format, options_json="{}", strict=false)`. These return owned `std::string` JSON envelopes, releasing native storage automatically. Both retain the native JSON document interface.
+
+## C# and .NET helpers
+
+`Lyrics.Project(document, options)` and `ExportProfile(document, format, options, policy)` return typed results. `ProjectionOptions` uses `Profile` and `ProjectionFeature` enums. Defaults select full/compatible. Use `new ProjectionOptions { Profile = Profile.Custom, Features = [] }` for explicit text/structure-only projection; omitted custom features are rejected by the core.

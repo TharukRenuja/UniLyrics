@@ -4,6 +4,7 @@ These small programs parse `[00:01]Hello 世界 🎵` with the shared engine. Mo
 
 | Language | Source |
 |---|---|
+| C# / .NET | [csharp.cs](csharp.cs) |
 | Rust | [rust.rs](rust.rs) |
 | JavaScript | [javascript.mjs](javascript.mjs) |
 | TypeScript | [typescript.mts](typescript.mts) |

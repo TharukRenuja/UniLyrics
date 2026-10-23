@@ -4,7 +4,7 @@
 
 ## Choose your SDK
 
-Use the [installation guide](INSTALLATION.md) for local package paths and linking. JavaScript and TypeScript run the Rust engine in WebAssembly. Python, Go, Java/Kotlin, Swift and C/C++ call a native library inside your process. Rust uses the core directly. Consumers of prebuilt engines do not need a Rust installation.
+Use the [installation guide](INSTALLATION.md) for local package paths and linking. JavaScript and TypeScript run the Rust engine in WebAssembly. Python, Go, Java/Kotlin, Swift, C/C++ and C#/.NET call a native library inside your process. Rust uses the core directly. Consumers of prebuilt engines do not need a Rust installation.
 
 Check [platform requirements](PLATFORMS.md) before choosing a native binary.
 

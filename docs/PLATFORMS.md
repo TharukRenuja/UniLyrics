@@ -6,12 +6,15 @@ The bindings share one engine, but package availability differs by platform. Use
 
 | Platform | Integration | Availability |
 |---|---|---|
-| Linux x86_64 | All ten language interfaces | Local package builder available; no universal glibc baseline promised |
+| Linux x86_64 | All 11 language interfaces | Local package builder available; no universal glibc baseline promised |
 | Android API 29+ | Java/Kotlin AAR with ARM64 and x86_64 native libraries | AAR builder and Gradle example available |
 | Windows x86_64 | Native C ABI, C/C++, Go and Python interfaces | MinGW cross-package builder available; native-host compatibility remains preliminary |
 | macOS | Rust core, C interface and Swift source wrapper | Native distribution and deployment targets are still in development |
 | iOS | Intended Swift/C integration | No ready-to-use XCFramework or supported binary distribution yet |
+| .NET 10 | C# models and local NuGet package | Linux x64 consumer available; optional Windows x64 payload remains preliminary, with native Windows execution unverified |
 | Node / browser | JavaScript and TypeScript through WASM | Caller supplies WASM bytes or a compiled module; browser bundling is application-managed |
+
+.NET requires version 10; older modern .NET versions, .NET Framework, NativeAOT, trimming and Unity are not supported by this initial package.
 
 Java requires Java 17 or newer; Kotlin is a JVM facade, not Kotlin/Native or Kotlin Multiplatform. Swift uses SwiftPM with a separate native engine. Go requires cgo. See [installation](INSTALLATION.md) for prerequisites and paths.
 

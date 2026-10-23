@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PackageId>UniLyrics</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Tharuk Renuja</Authors>
+    <Description>Offline lyrics parsing, validation and conversion powered by Rust.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/TharukRenuja/UniLyrics</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="/" />
+    <None Include="../NOTICE.md" Pack="true" PackagePath="/" />
+    <None Include="../../../licenses/**/*" Exclude="../../../licenses/kotlin/**;../../../licenses/json-java/**" Pack="true" PackagePath="licenses/" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UniLyricsWindowsNativePath)' != ''">
+    <None Include="$(UniLyricsWindowsNativePath)" Pack="true" PackagePath="runtimes/win-x64/native/" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UniLyricsNativePath)' != ''">
+    <None Include="$(UniLyricsNativePath)" Pack="true" PackagePath="runtimes/$(UniLyricsRid)/native/" />
+  </ItemGroup>
+  <Target Name="ValidateNativePackage" BeforeTargets="GenerateNuspec" Condition="'$(UniLyricsNativePath)' != ''">
+    <Error Condition="'$(UniLyricsRid)' == ''" Text="Set UniLyricsRid when bundling a native engine." />
+    <Error Condition="!Exists('$(UniLyricsNativePath)')" Text="Native engine file does not exist." />
+  </Target>
+</Project>
