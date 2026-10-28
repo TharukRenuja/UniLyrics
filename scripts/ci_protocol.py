@@ -118,3 +118,21 @@ def check_preservation_protocol(command):
     for reply, code in zip(exchange(invalid), ["SIDECAR_MISMATCH", "UNSUPPORTED_SIDECAR_VERSION", "INVALID_REQUEST"]):
         assert not reply["ok"] and reply["error"]["code"] == code, (command, reply)
     print("Shared preservation protocol checks passed: " + str(command[0]), flush=True)
+
+
+def check_cpp_registry(binary):
+    cases = [case for case in json.loads((ROOT / "crates/unilyrics/tests/fixtures/conformance.json").read_text(encoding="utf-8")) if "error" not in case]
+    requests = [{"op":"parse", "input":case["input"] if "input" in case else json.dumps(case["document"], ensure_ascii=False), "format":case["format"]} for case in cases]
+    replies = subprocess.run([str(binary), "--protocol"], input="\n".join(json.dumps(r, ensure_ascii=False) for r in requests) + "\n", stdout=subprocess.PIPE, text=True, encoding="utf-8", check=True)
+    documents = [json.loads(line)["result"]["document"] for line in replies.stdout.splitlines()]
+    assert len(documents) == len(cases), "C++ registry must cover every valid shared fixture"
+    custom = subprocess.run([str(binary), "--custom-protocol"], input="\n".join(json.dumps(d, ensure_ascii=False) for d in documents) + "\n", stdout=subprocess.PIPE, text=True, encoding="utf-8", check=True)
+    lines = custom.stdout.splitlines()
+    assert len(lines) == len(documents) * 3
+    for index, document in enumerate(documents):
+        parsed, detected, exported = [json.loads(line) for line in lines[index * 3:index * 3 + 3]]
+        assert parsed["ok"] and parsed["result"]["document"] == document
+        assert detected == {"ok":True, "result":"x-wrapped"}
+        assert exported["ok"] and exported["result"]["losses"] == []
+        assert json.loads(exported["result"]["output"][len("CUSTOM:"):]) == document
+    print("C++ custom registry passed the full valid shared corpus.", flush=True)

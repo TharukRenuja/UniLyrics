@@ -43,7 +43,9 @@ def main():
     annotations = stdlib.with_name("annotations-13.0.jar")
     if not annotations.is_file():
         raise SystemExit(f"Missing installed Kotlin annotation dependency: {annotations}")
-    run([sys.executable, "-B", ROOT / "scripts/build_android_native.py", "--ndk", options.ndk])
+    run([sys.executable, "-B", ROOT / "scripts/check_android_native.py", "--ndk", options.ndk,
+         "--sdk", sdk, "--platform", options.platform, "--build-tools", options.build_tools, "--api", "29",
+         *(["--r8-jar", options.r8_jar] if options.r8_jar else [])])
     output = ROOT / "target/packages-android"
     output.mkdir(exist_ok=True)
     archive_name = f"unilyrics-android-{version}.aar"
@@ -84,11 +86,21 @@ def main():
             for abi in ("arm64-v8a", "x86_64"):
                 for name in ("libunilyrics_ffi.so", "libunilyrics_jni.so"):
                     assert bundle.read(f"jni/{abi}/{name}") == (ROOT / "target/android-native" / abi / name).read_bytes()
+        consumers = scratch / "consumers"
+        consumers.mkdir()
+        run(["javac", "--release", "17", "-classpath", str(jar) + ":" + str(platform / "android.jar"),
+             "-d", consumers, ROOT / "bindings/java/AndroidNativeTest.java", ROOT / "bindings/java/JsonTest.java"])
+        tests = scratch / "tests.jar"
+        run(["jar", "--create", "--file", tests, "-C", consumers, "."])
+        kotlin_tests = scratch / "kotlin-tests.jar"
+        run([kotlin_tool, ROOT / "bindings/kotlin/AndroidNativeTest.kt", "-jvm-target", "17",
+             "-classpath", jar, "-d", kotlin_tests])
         dex = scratch / "dex"
         dex.mkdir()
-        run_d8(compiler_command, "--release", "--min-api", "29",
+        run_d8(compiler_command,
+             "--release", "--min-api", "29",
              "--lib", platform / "android.jar", "--lib", platform / "core-for-system-modules.jar",
-             "--output", dex, jar, stdlib, annotations)
+             "--output", dex, jar, tests, kotlin_tests, stdlib, annotations)
         assert (dex / "classes.dex").read_bytes().startswith(b"dex\n")
         shutil.copy2(archive, output / archive_name)
     archive = output / archive_name
@@ -114,8 +126,8 @@ def main():
         "dex_compiler": compiler_version,
         "r8_sha256": hashlib.sha256(options.r8_jar.read_bytes()).hexdigest() if options.r8_jar else None,
         "sha256": {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in artifacts}}, indent=2) + "\n")
-    print(f"Android AAR built: {archive}")
-    print("Nothing published.")
+    print(f"Android AAR layout, native contents and extracted Java/Kotlin DEX consumers pass: {archive}")
+    print("Package verification does not run installed-app checks; use check_android_app.py with and without --shrink. Nothing published.")
 
 
 if __name__ == "__main__":

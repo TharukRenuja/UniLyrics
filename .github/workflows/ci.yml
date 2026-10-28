@@ -16,7 +16,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, windows-2025, macos-15]
+        include:
+          - os: ubuntu-24.04
+            arch: X64
+          - os: windows-2025
+            arch: X64
+          - os: macos-15
+            arch: ARM64
+          - os: macos-15-intel
+            arch: X64
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     steps:
@@ -29,6 +37,10 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
+      - name: Assert runner architecture
+        env:
+          EXPECTED_ARCH: ${{ matrix.arch }}
+        run: python -c "import os; assert os.environ['RUNNER_ARCH'] == os.environ['EXPECTED_ARCH'], os.environ['RUNNER_ARCH']"
       - name: Prepare Rust
         run: |
           rustup toolchain install stable --profile minimal --component rustfmt,clippy
@@ -53,34 +65,115 @@ jobs:
           path: target/host-checks/
           if-no-files-found: ignore
           retention-days: 14
-  android:
-    name: Android ARM64 and x86_64 native build
+  languages:
+    name: All 11 SDKs and installed Linux packages
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-      - name: Prepare Rust targets and NDK
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.x'
+          cache: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+      - name: Prepare test dependencies
         run: |
+          set -euo pipefail
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup target add wasm32-unknown-unknown
+          cargo fetch --locked
+          npm install --global typescript@5.7.3
+          python -m pip install setuptools==75.8.0 wheel==0.45.1
+          kotlinc -version
+          swift --version
+          mkdir -p target/deps
+          curl --fail --location --retry 3 https://repo.maven.apache.org/maven2/org/json/json/20250517/json-20250517.jar -o target/deps/json-20250517.jar
+          echo '3ea61b2a06e31edf1c91134fe9106b0ebb16628be169f3db75bc7a2b06b45796  target/deps/json-20250517.jar' | sha256sum --check
+      - name: CI extension regression tests
+        run: python -B scripts/test_ci_extensions.py
+      - name: Source SDK suites
+        run: python -B scripts/check_ci_languages.py
+      - name: Compare all 11 examples
+        run: python -B scripts/check_examples.py
+      - name: Build local packages
+        run: python -B scripts/package.py
+      - name: Installed package consumers
+        run: |
+          python -B scripts/check_packages.py
+          python -B scripts/check_dotnet_package.py --package target/packages/UniLyrics.0.1.0.nupkg
+      - name: Retain language logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-language-logs
+          path: target/host-checks/
+          if-no-files-found: ignore
+          retention-days: 14
+  android:
+    name: Android AAR and API 29 runtime
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Prepare Rust targets and Android tools
+        run: |
+          set -euo pipefail
           rustup toolchain install stable --profile minimal
           rustup default stable
           rustup target add aarch64-linux-android x86_64-linux-android
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" 'ndk;28.2.13676358'
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" 'ndk;28.2.13676358' 'platforms;android-37.0' 'build-tools;36.0.0'
           cargo fetch --locked
-      - name: Build native engine and JNI for API 29
-        shell: bash
+          mkdir -p target/deps
+          curl --fail --location --retry 3 https://storage.googleapis.com/r8-releases/raw/9.1.29/r8lib.jar -o target/deps/r8.jar
+          echo '8eb4066c985e29147d3868356368137e66fc145c54f8c1f535ec0131d5845291  target/deps/r8.jar' | sha256sum --check
+      - name: Build and inspect the AAR
+        run: python3 -B scripts/package_android.py --ndk "$ANDROID_HOME/ndk/28.2.13676358" --sdk "$ANDROID_HOME" --platform android-37.0 --build-tools 36.0.0 --r8-jar target/deps/r8.jar
+      - name: Enable emulator acceleration
         run: |
-          set -euo pipefail
-          tools="$ANDROID_HOME/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin"
-          export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$tools/aarch64-linux-android29-clang"
-          export CARGO_TARGET_X86_64_LINUX_ANDROID_LINKER="$tools/x86_64-linux-android29-clang"
-          for target in aarch64-linux-android x86_64-linux-android; do
-            cargo build --locked --offline --release -p unilyrics-ffi --target "$target"
-            "$tools/${target}29-clang" -shared -fPIC -Wall -Wextra -Werror bindings/java/native/unilyrics_jni.c -L"target/$target/release" -lunilyrics_ffi -o "target/$target/release/libunilyrics_jni.so"
-          done
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Test packaged Java and Kotlin in an Android app
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          arch: x86_64
+          target: default
+          disable-animations: true
+          script: |
+            python3 -B scripts/check_android_app.py --sdk "$ANDROID_HOME" --platform android-37.0 --build-tools 36.0.0 --r8-jar target/deps/r8.jar --aar target/packages-android/unilyrics-android-0.1.0.aar --device emulator-5554
+            python3 -B scripts/check_android_app.py --sdk "$ANDROID_HOME" --platform android-37.0 --build-tools 36.0.0 --r8-jar target/deps/r8.jar --aar target/packages-android/unilyrics-android-0.1.0.aar --device emulator-5554 --shrink
+      - name: Retain Android reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-reports
+          path: target/android-app-api*.json
+          if-no-files-found: ignore
+          retention-days: 14
   ios:
-    name: iOS device and simulator native build
+    name: Apple XCFramework and iOS Simulator
     runs-on: macos-15
     timeout-minutes: 25
     steps:
@@ -92,18 +185,22 @@ jobs:
           xcodebuild -version
           rustup toolchain install stable --profile minimal
           rustup default stable
-          rustup target add aarch64-apple-ios aarch64-apple-ios-sim
+          rustup target add aarch64-apple-darwin aarch64-apple-ios aarch64-apple-ios-sim
           cargo fetch --locked
-      - name: Build device and simulator libraries
-        run: |
-          set -euo pipefail
-          for target in aarch64-apple-ios aarch64-apple-ios-sim; do
-            cargo build --locked --offline --release -p unilyrics-ffi --target "$target"
-          done
+      - name: Consume XCFramework on Mac and iOS Simulator
+        run: python3 -B scripts/check_apple_package.py
+      - name: Retain Apple logs and test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-package-results
+          path: target/host-checks/apple-package/
+          if-no-files-found: ignore
+          retention-days: 14
   required:
     name: Required checks
     if: always()
-    needs: [desktop, android, ios]
+    needs: [desktop, languages, android, ios]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
