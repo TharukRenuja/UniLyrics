@@ -283,3 +283,65 @@ pub unsafe extern "C" fn unilyrics_free_input(data: *mut u8, length: usize) {
         drop(unsafe { Box::from_raw(std::ptr::slice_from_raw_parts_mut(data, length)) });
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::ffi::CStr;
+    #[test]
+    fn protocol_and_ownership() {
+        let input = br#"{"op":"parse","input":"[00:01.00]hello","format":"lrc"}"#;
+        unsafe {
+            let result = unilyrics_process(input.as_ptr(), input.len());
+            assert!(CStr::from_ptr(result).to_str().unwrap().contains("hello"));
+            unilyrics_free(result);
+            let error = unilyrics_process(std::ptr::null(), 0);
+            assert!(CStr::from_ptr(error)
+                .to_str()
+                .unwrap()
+                .contains("INVALID_BUFFER"));
+            unilyrics_free(error);
+            let error = unilyrics_process([255u8].as_ptr(), 1);
+            assert!(CStr::from_ptr(error)
+                .to_str()
+                .unwrap()
+                .contains("INVALID_UTF8"));
+            unilyrics_free(error);
+            unilyrics_free(std::ptr::null_mut());
+        }
+    }
+
+    #[test]
+    fn direct_operations_and_invalid_parameters() {
+        let document = br#"{"version":1,"cues":[],"metadata":[],"attributes":{}}"#;
+        for (text, operation, format, strict, expected) in [
+            (b"WEBVTT\n\n00:01.250 --> 00:02.000\nvoice".as_slice(), 0, 8, 0, "1250000"),
+            (b"1\n00:00:01,250 --> 00:00:02,000\nvoice".as_slice(), 0, 7, 0, "1250000"),
+            (br#"<tt xmlns="http://www.w3.org/ns/ttml"><body><p begin="1s"><span begin="250ms">x</span></p></body></tt>"#.as_slice(), 0, 5, 0, "1250000"),
+            (br#"<tt xmlns="http://www.w3.org/ns/ttml"><body><p begin="1s"><span begin="1250ms">x</span></p></body></tt>"#.as_slice(), 0, 6, 0, "1250000"),
+            ("[00:01]hi".as_bytes(), 0, 2, 0, "1000000"),
+            ("[00:01]hi".as_bytes(), 1, 0, 0, "lrc"),
+            (document.as_slice(), 2, 1, 0, "output"),
+            (document.as_slice(), 3, 0, 0, "valid"),
+            (document.as_slice(), 4, 0, 0, "auxiliary_kinds"),
+            (b"".as_slice(), 0, 1, 0, "document"),
+            (b"".as_slice(), 99, 0, 0, "INVALID_OPERATION"),
+            (b"".as_slice(), 0, 99, 0, "INVALID_FORMAT"),
+            (b"".as_slice(), 0, 0, 99, "INVALID_POLICY"),
+            (b"broken".as_slice(), 2, 1, 0, "INVALID_JSON"),
+            ([255u8].as_slice(), 0, 1, 0, "INVALID_UTF8"),
+        ] {
+            unsafe {
+                let pointer = if text.is_empty() {
+                    std::ptr::null()
+                } else {
+                    text.as_ptr()
+                };
+                let response = unilyrics_call(pointer, text.len(), operation, format, strict);
+                let response_text = CStr::from_ptr(response).to_str().unwrap().to_owned();
+                unilyrics_free(response);
+                assert!(response_text.contains(expected), "{response_text}");
+            }
+        }
+    }
+}

@@ -1,0 +1,981 @@
+[
+  {
+    "name": "all explicit times, relationships and opaque source data",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "offset_us": 100,
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 200,
+          "end_us": 600,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 250,
+              "end_us": 500,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 200,
+          "end_us": 400,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 350,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 150,
+              "end_us": 550,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "diagnostic_codes": [
+      "TIMING_SHIFTED",
+      "EXTENSIONS_UNCHANGED",
+      "OFFSET_METADATA_UNCHANGED"
+    ]
+  },
+  {
+    "name": "negative shift reaches zero without invented boundaries",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "offset_us": -50,
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 50,
+          "end_us": 450,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 100,
+              "end_us": 350,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 50,
+          "end_us": 250,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 200,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 0,
+              "end_us": 400,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "diagnostic_codes": [
+      "TIMING_SHIFTED",
+      "EXTENSIONS_UNCHANGED",
+      "OFFSET_METADATA_UNCHANGED"
+    ]
+  },
+  {
+    "name": "zero is an exact no-op",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "offset_us": 0,
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "diagnostic_codes": []
+  },
+  {
+    "name": "default is an exact no-op",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "diagnostic_codes": []
+  },
+  {
+    "name": "untimed lyrics stay untimed",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "offset_us": 100,
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "diagnostic_codes": []
+  },
+  {
+    "name": "explicit start reaches zero",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": 1,
+          "end_us": 2,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "offset_us": -1,
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": 0,
+          "end_us": 1,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "diagnostic_codes": [
+      "TIMING_SHIFTED"
+    ]
+  },
+  {
+    "name": "underflow rejects instead of clamping",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": 1,
+          "end_us": 2,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "offset_us": -2,
+    "error": "INVALID_TIME"
+  },
+  {
+    "name": "late auxiliary underflow is atomic",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "offset_us": -51,
+    "error": "INVALID_TIME"
+  },
+  {
+    "name": "overflow rejects whole operation",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": 9007199254740990,
+          "end_us": 9007199254740991,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "offset_us": 1,
+    "error": "INVALID_TIME"
+  },
+  {
+    "name": "offset range is consistent across languages",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "offset_us": 9007199254740992,
+    "error": "INVALID_OFFSET"
+  },
+  {
+    "name": "invalid input is validated before no-op",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "cue",
+          "start_us": 9007199254740992,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "hi",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "offset_us": 0,
+    "error": "INVALID_TIME"
+  }
+]

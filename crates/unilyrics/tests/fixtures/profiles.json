@@ -1,0 +1,2876 @@
+[
+  {
+    "name": "full profile canonical projection",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "full"
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "roman",
+          "kind": "romanization",
+          "language": "si-Latn",
+          "target_ids": [
+            "lead"
+          ],
+          "segments": [
+            {
+              "text": "sinhala",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "codes": []
+  },
+  {
+    "name": "line profile canonical projection",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "line"
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {},
+              "id": "word"
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {},
+      "language": "si"
+    },
+    "codes": [
+      "PROFILE_SEGMENT_TIMING_DROPPED",
+      "PROFILE_AGENTS_DROPPED",
+      "PROFILE_RELATIONSHIPS_DROPPED",
+      "PROFILE_ROLES_DROPPED",
+      "PROFILE_ATTRIBUTES_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED"
+    ]
+  },
+  {
+    "name": "word profile canonical projection",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "word"
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word"
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {},
+      "language": "si"
+    },
+    "codes": [
+      "PROFILE_AGENTS_DROPPED",
+      "PROFILE_RELATIONSHIPS_DROPPED",
+      "PROFILE_ROLES_DROPPED",
+      "PROFILE_ATTRIBUTES_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED"
+    ]
+  },
+  {
+    "name": "karaoke profile canonical projection",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "karaoke"
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {},
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ]
+    },
+    "codes": [
+      "PROFILE_ATTRIBUTES_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED"
+    ]
+  },
+  {
+    "name": "plain profile canonical projection",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "plain"
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {},
+              "id": "word"
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "codes": [
+      "PROFILE_LINE_TIMING_DROPPED",
+      "PROFILE_SEGMENT_TIMING_DROPPED",
+      "PROFILE_AGENTS_DROPPED",
+      "PROFILE_RELATIONSHIPS_DROPPED",
+      "PROFILE_LANGUAGES_DROPPED",
+      "PROFILE_ROLES_DROPPED",
+      "PROFILE_METADATA_DROPPED",
+      "PROFILE_ATTRIBUTES_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED"
+    ]
+  },
+  {
+    "name": "translated profile canonical projection",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "translated"
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {},
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "codes": [
+      "PROFILE_ATTRIBUTES_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED"
+    ]
+  },
+  {
+    "name": "custom all is identity",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "custom",
+        "features": [
+          "line_timing",
+          "segment_timing",
+          "agents",
+          "relationships",
+          "languages",
+          "roles",
+          "metadata",
+          "attributes",
+          "auxiliary"
+        ]
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "roman",
+          "kind": "romanization",
+          "language": "si-Latn",
+          "target_ids": [
+            "lead"
+          ],
+          "segments": [
+            {
+              "text": "sinhala",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "codes": []
+  },
+  {
+    "name": "custom empty selects text only",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "custom",
+        "features": []
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {},
+              "id": "word"
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {}
+    },
+    "codes": [
+      "PROFILE_LINE_TIMING_DROPPED",
+      "PROFILE_SEGMENT_TIMING_DROPPED",
+      "PROFILE_AGENTS_DROPPED",
+      "PROFILE_RELATIONSHIPS_DROPPED",
+      "PROFILE_LANGUAGES_DROPPED",
+      "PROFILE_ROLES_DROPPED",
+      "PROFILE_METADATA_DROPPED",
+      "PROFILE_ATTRIBUTES_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED"
+    ]
+  },
+  {
+    "name": "default projection is full",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "roman",
+          "kind": "romanization",
+          "language": "si-Latn",
+          "target_ids": [
+            "lead"
+          ],
+          "segments": [
+            {
+              "text": "sinhala",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "codes": []
+  },
+  {
+    "name": "line profile compatible JSON export",
+    "request": {
+      "op": "export_profile",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "format": "json",
+      "options": {
+        "profile": "line"
+      }
+    },
+    "output_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {},
+              "id": "word"
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {},
+      "language": "si"
+    },
+    "codes": [
+      "PROFILE_SEGMENT_TIMING_DROPPED",
+      "PROFILE_AGENTS_DROPPED",
+      "PROFILE_RELATIONSHIPS_DROPPED",
+      "PROFILE_ROLES_DROPPED",
+      "PROFILE_ATTRIBUTES_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED"
+    ]
+  },
+  {
+    "name": "strict cannot hide intentional profile loss",
+    "request": {
+      "op": "export_profile",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "format": "json",
+      "policy": "strict",
+      "options": {
+        "profile": "line"
+      }
+    },
+    "error": "LOSSY_CONVERSION"
+  },
+  {
+    "name": "full strict JSON export",
+    "request": {
+      "op": "export_profile",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "format": "json",
+      "policy": "strict"
+    },
+    "output_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": 100,
+          "end_us": 500,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {},
+              "id": "word",
+              "agent_ids": [
+                "voice"
+              ]
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": 100,
+          "end_us": 300,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": 250,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "offset",
+          "value": "-25"
+        }
+      ],
+      "attributes": {
+        "source_time": 999
+      },
+      "language": "si",
+      "agents": [
+        {
+          "id": "voice",
+          "name": "Singer",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "translation",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "word"
+          ],
+          "segments": [
+            {
+              "text": "hello",
+              "start_us": 50,
+              "end_us": 450,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "roman",
+          "kind": "romanization",
+          "language": "si-Latn",
+          "target_ids": [
+            "lead"
+          ],
+          "segments": [
+            {
+              "text": "sinhala",
+              "start_us": 150,
+              "end_us": 400,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "codes": []
+  },
+  {
+    "name": "custom opaque data remains explicit",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "custom",
+        "features": [
+          "attributes"
+        ]
+      }
+    },
+    "expected_document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "lead",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "සිංහල 👩🏽‍💻",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {},
+              "id": "word"
+            },
+            {
+              "text": " missing",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "background",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "back",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ],
+      "metadata": [],
+      "attributes": {
+        "source_time": 999
+      }
+    },
+    "codes": [
+      "PROFILE_LINE_TIMING_DROPPED",
+      "PROFILE_SEGMENT_TIMING_DROPPED",
+      "PROFILE_AGENTS_DROPPED",
+      "PROFILE_RELATIONSHIPS_DROPPED",
+      "PROFILE_LANGUAGES_DROPPED",
+      "PROFILE_ROLES_DROPPED",
+      "PROFILE_METADATA_DROPPED",
+      "PROFILE_AUXILIARY_DROPPED",
+      "PROFILE_EXTENSIONS_UNCHANGED"
+    ]
+  },
+  {
+    "name": "custom needs explicit list",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "custom"
+      }
+    },
+    "error": "INVALID_PROFILE"
+  },
+  {
+    "name": "named masks are not overridden",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "line",
+        "features": []
+      }
+    },
+    "error": "INVALID_PROFILE"
+  },
+  {
+    "name": "duplicate custom controls",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "custom",
+        "features": [
+          "metadata",
+          "metadata"
+        ]
+      }
+    },
+    "error": "INVALID_PROFILE"
+  },
+  {
+    "name": "unknown control",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "custom",
+        "features": [
+          "invent_words"
+        ]
+      }
+    },
+    "error": "INVALID_REQUEST"
+  },
+  {
+    "name": "unknown option",
+    "request": {
+      "op": "project",
+      "document": {
+        "version": 1,
+        "cues": [
+          {
+            "id": "lead",
+            "start_us": 100,
+            "end_us": 500,
+            "segments": [
+              {
+                "text": "සිංහල 👩🏽‍💻",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {},
+                "id": "word",
+                "agent_ids": [
+                  "voice"
+                ]
+              },
+              {
+                "text": " missing",
+                "start_us": null,
+                "end_us": null,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "background",
+            "start_us": 100,
+            "end_us": 300,
+            "segments": [
+              {
+                "text": "back",
+                "start_us": null,
+                "end_us": 250,
+                "attributes": {}
+              }
+            ],
+            "attributes": {},
+            "parent_id": "lead",
+            "roles": [
+              "background"
+            ]
+          }
+        ],
+        "metadata": [
+          {
+            "key": "offset",
+            "value": "-25"
+          }
+        ],
+        "attributes": {
+          "source_time": 999
+        },
+        "language": "si",
+        "agents": [
+          {
+            "id": "voice",
+            "name": "Singer",
+            "attributes": {}
+          }
+        ],
+        "auxiliary": [
+          {
+            "id": "translation",
+            "kind": "translation",
+            "language": "en",
+            "target_ids": [
+              "word"
+            ],
+            "segments": [
+              {
+                "text": "hello",
+                "start_us": 50,
+                "end_us": 450,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          },
+          {
+            "id": "roman",
+            "kind": "romanization",
+            "language": "si-Latn",
+            "target_ids": [
+              "lead"
+            ],
+            "segments": [
+              {
+                "text": "sinhala",
+                "start_us": 150,
+                "end_us": 400,
+                "attributes": {}
+              }
+            ],
+            "attributes": {}
+          }
+        ]
+      },
+      "options": {
+        "profile": "full",
+        "unknown": true
+      }
+    },
+    "error": "INVALID_REQUEST"
+  }
+]

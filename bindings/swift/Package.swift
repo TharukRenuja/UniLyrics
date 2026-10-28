@@ -6,6 +6,7 @@ let package = Package(
     products: [.library(name: "UniLyrics", targets: ["UniLyrics"])],
     targets: [
         .systemLibrary(name: "CUniLyrics", path: "Sources/CUniLyrics"),
-        .target(name: "UniLyrics", dependencies: ["CUniLyrics"], linkerSettings: [.linkedLibrary("unilyrics_ffi")])
+        .target(name: "UniLyrics", dependencies: ["CUniLyrics"], linkerSettings: [.linkedLibrary("unilyrics_ffi")]),
+        .testTarget(name: "UniLyricsTests", dependencies: ["UniLyrics"])
     ]
 )

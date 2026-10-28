@@ -306,3 +306,282 @@ pub unsafe extern "C" fn unilyrics_copy_reply(data: *const u8, length: usize) ->
         Ok(text.to_owned())
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::ffi::CStr;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    struct Context {
+        calls: AtomicUsize,
+        registry: *mut NativeRegistry,
+    }
+    unsafe extern "C" fn matches(_: *mut c_void, bytes: *const u8, length: usize) -> i32 {
+        i32::from(
+            unsafe { input(bytes, length) }
+                .unwrap()
+                .starts_with("CUSTOM:"),
+        )
+    }
+    unsafe extern "C" fn parse(
+        context: *mut c_void,
+        bytes: *const u8,
+        length: usize,
+    ) -> *mut c_char {
+        let context = unsafe { &*(context as *const Context) };
+        context.calls.fetch_add(1, Ordering::Relaxed);
+        let text = unsafe { input(bytes, length) }.unwrap();
+        if let Some(text) = text.strip_prefix("CUSTOM:") {
+            unsafe { super::super::unilyrics_call(text.as_ptr(), text.len(), 0, 4, 0) }
+        } else {
+            unsafe {
+                unilyrics_error_result(
+                    b"BAD_HEADER".as_ptr(),
+                    10,
+                    b"Missing CUSTOM prefix".as_ptr(),
+                    21,
+                )
+            }
+        }
+    }
+    unsafe extern "C" fn export(
+        _: *mut c_void,
+        bytes: *const u8,
+        length: usize,
+        _: i32,
+    ) -> *mut c_char {
+        let text = format!("CUSTOM:{}", unsafe { input(bytes, length) }.unwrap());
+        unsafe { unilyrics_export_result(text.as_ptr(), text.len()) }
+    }
+    unsafe extern "C" fn bad(_: *mut c_void, _: *const u8, _: usize) -> *mut c_char {
+        output("not json".into())
+    }
+    unsafe extern "C" fn null(_: *mut c_void, _: *const u8, _: usize) -> *mut c_char {
+        std::ptr::null_mut()
+    }
+    unsafe extern "C" fn reentrant(context: *mut c_void, _: *const u8, _: usize) -> *mut c_char {
+        let context = unsafe { &*(context as *const Context) };
+        let mut error = std::ptr::null_mut();
+        let ok = unsafe {
+            unilyrics_registry_register(
+                context.registry,
+                b"x-inside".as_ptr(),
+                8,
+                std::ptr::null_mut(),
+                None,
+                None,
+                None,
+                &mut error,
+            )
+        };
+        assert_eq!(ok, 1);
+        assert!(error.is_null());
+        unsafe { super::super::unilyrics_call(b"hi".as_ptr(), 2, 0, 1, 0) }
+    }
+    unsafe fn decode(reply: *mut c_char) -> serde_json::Value {
+        let value = serde_json::from_slice(unsafe { CStr::from_ptr(reply) }.to_bytes()).unwrap();
+        unsafe { super::super::unilyrics_free(reply) };
+        value
+    }
+    unsafe fn register(
+        registry: *mut NativeRegistry,
+        name: &str,
+        context: *mut c_void,
+        parser: Option<Parse>,
+    ) -> serde_json::Value {
+        let mut error = std::ptr::null_mut();
+        let ok = unsafe {
+            unilyrics_registry_register(
+                registry,
+                name.as_ptr(),
+                name.len(),
+                context,
+                Some(matches),
+                parser,
+                Some(export),
+                &mut error,
+            )
+        };
+        if ok == 1 {
+            assert!(error.is_null());
+            serde_json::json!({"ok":true})
+        } else {
+            unsafe { decode(error) }
+        }
+    }
+    unsafe fn call(
+        registry: *mut NativeRegistry,
+        text: &str,
+        op: i32,
+        format: &str,
+        strict: i32,
+    ) -> serde_json::Value {
+        unsafe {
+            decode(unilyrics_registry_call(
+                registry,
+                text.as_ptr(),
+                text.len(),
+                op,
+                format.as_ptr(),
+                format.len(),
+                strict,
+            ))
+        }
+    }
+
+    #[test]
+    fn native_callbacks_rich_corpus_and_reentrancy() {
+        unsafe {
+            let registry = unilyrics_registry_new();
+            let mut context = Context {
+                calls: AtomicUsize::new(0),
+                registry,
+            };
+            let pointer = (&mut context as *mut Context).cast::<c_void>();
+            assert_eq!(
+                register(registry, "x-wrapped", pointer, Some(parse))["ok"],
+                true
+            );
+            let cases: Vec<serde_json::Value> = serde_json::from_str(include_str!(
+                "../../unilyrics/tests/fixtures/conformance.json"
+            ))
+            .unwrap();
+            for case in cases.into_iter().filter(|c| c.get("error").is_none()) {
+                let format: unilyrics::Format =
+                    serde_json::from_value(case["format"].clone()).unwrap();
+                let text = case["input"]
+                    .as_str()
+                    .map(str::to_owned)
+                    .unwrap_or_else(|| case["document"].to_string());
+                let original = unilyrics::parse(&text, Some(format)).unwrap().document;
+                let json = serde_json::to_string(&original).unwrap();
+                let exported = call(registry, &json, 2, "x-wrapped", 1);
+                assert_eq!(exported["ok"], true, "{exported}");
+                let custom = exported["result"]["output"].as_str().unwrap();
+                assert_eq!(call(registry, custom, 1, "", 0)["result"], "x-wrapped");
+                assert_eq!(
+                    call(registry, custom, 0, "", 0)["result"]["document"],
+                    serde_json::to_value(original).unwrap()
+                );
+            }
+            let address = registry as usize;
+            std::thread::scope(|scope| {
+                for index in 0..4 {
+                    scope.spawn(move || {
+                        let handle = address as *mut NativeRegistry;
+                        let name = format!("x-thread-{index}");
+                        let mut error = std::ptr::null_mut();
+                        assert_eq!(
+                            unilyrics_registry_register(
+                                handle,
+                                name.as_ptr(),
+                                name.len(),
+                                std::ptr::null_mut(),
+                                None,
+                                None,
+                                None,
+                                &mut error
+                            ),
+                            1
+                        );
+                        assert!(error.is_null());
+                        for _ in 0..10 {
+                            assert_eq!(
+                                call(handle, "CUSTOM:{\"version\":1,\"cues\":[]}", 0, "", 0)["ok"],
+                                true
+                            );
+                        }
+                    });
+                }
+            });
+            assert!(context.calls.load(Ordering::Relaxed) > 0);
+            assert_eq!(
+                register(registry, "x-reentrant", pointer, Some(reentrant))["ok"],
+                true
+            );
+            assert_eq!(call(registry, "hi", 0, "x-reentrant", 0)["ok"], true);
+            unilyrics_registry_free(registry);
+            unilyrics_registry_free(std::ptr::null_mut());
+        }
+    }
+
+    #[test]
+    fn copying_callback_replies_validates_and_owns_storage() {
+        unsafe {
+            for reply in [
+                r#"{"ok":true,"result":{"output":"hello","losses":[]}}"#,
+                r#"{"ok":false,"error":{"code":"CUSTOM","message":"failure"}}"#,
+            ] {
+                assert_eq!(
+                    decode(unilyrics_copy_reply(reply.as_ptr(), reply.len())),
+                    serde_json::from_str::<serde_json::Value>(reply).unwrap()
+                );
+            }
+            for reply in [
+                "not json",
+                "{}",
+                r#"{"ok":false,"error":{}}"#,
+                r#"{"ok":true}"#,
+            ] {
+                assert_eq!(
+                    decode(unilyrics_copy_reply(reply.as_ptr(), reply.len()))["error"]["code"],
+                    "INVALID_CALLBACK_RESULT"
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn native_failure_results_and_ownership() {
+        unsafe {
+            let registry = unilyrics_registry_new();
+            assert_eq!(
+                register(registry, "plain", std::ptr::null_mut(), Some(null))["error"]["code"],
+                "INVALID_CUSTOM_FORMAT"
+            );
+            assert_eq!(
+                register(registry, "x-null", std::ptr::null_mut(), Some(null))["ok"],
+                true
+            );
+            assert_eq!(
+                register(registry, "x-null", std::ptr::null_mut(), Some(null))["error"]["code"],
+                "DUPLICATE_FORMAT"
+            );
+            assert_eq!(
+                call(registry, "hi", 0, "x-null", 0)["error"]["code"],
+                "INVALID_CALLBACK_RESULT"
+            );
+            assert_eq!(
+                register(registry, "x-bad", std::ptr::null_mut(), Some(bad))["ok"],
+                true
+            );
+            assert_eq!(
+                call(registry, "hi", 0, "x-bad", 0)["error"]["code"],
+                "INVALID_CALLBACK_RESULT"
+            );
+            assert_eq!(
+                call(registry, "hi", 99, "", 0)["error"]["code"],
+                "INVALID_OPERATION"
+            );
+            assert_eq!(
+                call(registry, "hi", 0, "plain", 9)["error"]["code"],
+                "INVALID_POLICY"
+            );
+            assert_eq!(
+                call(std::ptr::null_mut(), "hi", 0, "plain", 0)["error"]["code"],
+                "INVALID_REGISTRY"
+            );
+            assert_eq!(
+                decode(unilyrics_error_result(
+                    b"CUSTOM_FAILURE".as_ptr(),
+                    14,
+                    b"bad \"text\"".as_ptr(),
+                    10
+                ))["error"]["message"],
+                "bad \"text\""
+            );
+            unilyrics_registry_free(registry);
+        }
+    }
+}

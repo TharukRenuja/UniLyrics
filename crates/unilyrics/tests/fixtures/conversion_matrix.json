@@ -1,0 +1,132 @@
+[
+  {
+    "source_case": "rich_vocals_auxiliary",
+    "targets": {
+      "plain": {
+        "loss_codes": [
+          "AGENTS_DROPPED",
+          "ATTRIBUTES_DROPPED",
+          "AUXILIARY_DROPPED",
+          "CUE_IDS_CHANGED",
+          "LANGUAGE_DROPPED",
+          "METADATA_DROPPED",
+          "RELATIONSHIPS_DROPPED",
+          "ROLES_DROPPED",
+          "SEGMENT_IDS_DROPPED",
+          "TIMING_DROPPED",
+          "VOCAL_AGENTS_DROPPED"
+        ]
+      },
+      "lrc": {
+        "loss_codes": [
+          "AGENTS_DROPPED",
+          "ATTRIBUTES_DROPPED",
+          "AUXILIARY_DROPPED",
+          "CUE_END_DROPPED",
+          "CUE_IDS_CHANGED",
+          "LANGUAGE_DROPPED",
+          "RELATIONSHIPS_DROPPED",
+          "ROLES_DROPPED",
+          "SEGMENT_IDS_DROPPED",
+          "SEGMENT_TIMING_DROPPED",
+          "VOCAL_AGENTS_DROPPED"
+        ]
+      },
+      "enhanced_lrc": {
+        "loss_codes": [
+          "AGENTS_DROPPED",
+          "ATTRIBUTES_DROPPED",
+          "AUXILIARY_DROPPED",
+          "CUE_END_DROPPED",
+          "CUE_IDS_CHANGED",
+          "LANGUAGE_DROPPED",
+          "RELATIONSHIPS_DROPPED",
+          "ROLES_DROPPED",
+          "SEGMENT_IDS_DROPPED",
+          "VOCAL_AGENTS_DROPPED"
+        ]
+      },
+      "json": {
+        "loss_codes": []
+      },
+      "ttml": {
+        "loss_codes": [
+          "ATTRIBUTES_DROPPED",
+          "AUXILIARY_DROPPED",
+          "METADATA_DROPPED",
+          "RELATIONSHIPS_DROPPED",
+          "TTML_PROJECTION_CHANGED"
+        ]
+      },
+      "ttml_lyrics": {
+        "loss_codes": [
+          "ATTRIBUTES_DROPPED",
+          "AUXILIARY_DROPPED",
+          "TTML_PROJECTION_CHANGED"
+        ]
+      },
+      "srt": {
+        "error": "MISSING_TIMING"
+      },
+      "webvtt": {
+        "error": "MISSING_TIMING"
+      }
+    }
+  },
+  {
+    "source_case": "canonical voice and language WebVTT export",
+    "targets": {
+      "plain": {
+        "loss_codes": [
+          "AGENTS_DROPPED",
+          "LANGUAGE_DROPPED",
+          "TIMING_DROPPED",
+          "VOCAL_AGENTS_DROPPED"
+        ]
+      },
+      "lrc": {
+        "loss_codes": [
+          "AGENTS_DROPPED",
+          "CUE_END_DROPPED",
+          "LANGUAGE_DROPPED",
+          "SEGMENT_TIMING_DROPPED",
+          "VOCAL_AGENTS_DROPPED"
+        ]
+      },
+      "enhanced_lrc": {
+        "loss_codes": [
+          "AGENTS_DROPPED",
+          "CUE_END_DROPPED",
+          "LANGUAGE_DROPPED",
+          "VOCAL_AGENTS_DROPPED"
+        ]
+      },
+      "json": {
+        "loss_codes": []
+      },
+      "ttml": {
+        "loss_codes": [
+          "TTML_PROJECTION_CHANGED"
+        ]
+      },
+      "ttml_lyrics": {
+        "loss_codes": [
+          "TTML_PROJECTION_CHANGED"
+        ]
+      },
+      "srt": {
+        "loss_codes": [
+          "AGENTS_DROPPED",
+          "LANGUAGE_DROPPED",
+          "SEGMENT_BOUNDARIES_DROPPED",
+          "SEGMENT_TIMING_DROPPED",
+          "SRT_PROJECTION_CHANGED",
+          "VOCAL_AGENTS_DROPPED"
+        ]
+      },
+      "webvtt": {
+        "loss_codes": []
+      }
+    }
+  }
+]

@@ -9,7 +9,8 @@ The bindings share one engine, but package availability differs by platform. Use
 | Linux x86_64 | All 11 language interfaces | Local package builder available; no universal glibc baseline promised |
 | Android API 29+ | Java/Kotlin AAR with ARM64 and x86_64 native libraries | AAR builder and Gradle example available |
 | Windows x86_64 | Native C ABI, C/C++, Go and Python interfaces | MinGW cross-package builder available; native-host compatibility remains preliminary |
-| macOS | Rust core, C interface and Swift source wrapper | Native distribution and deployment targets are still in development |
+| macOS Apple Silicon | Rust, C/C++ and Swift source integration tested on macOS 27.0.1 with Xcode 27.1 | Native distribution, installed packages and minimum deployment targets remain in development |
+| macOS Intel | Rust static archive inspected | Native execution remains untested |
 | iOS | Intended Swift/C integration | No ready-to-use XCFramework or supported binary distribution yet |
 | .NET 10 | C# models and local NuGet package | Linux x64 consumer available; optional Windows x64 payload remains preliminary, with native Windows execution unverified |
 | Node / browser | JavaScript and TypeScript through WASM | Caller supplies WASM bytes or a compiled module; browser bundling is application-managed |

@@ -1,0 +1,721 @@
+[
+  {
+    "name": "line_precision",
+    "input": "[00:01.25]Hello",
+    "format": "lrc",
+    "text": [
+      "Hello"
+    ],
+    "starts": [
+      1250000
+    ]
+  },
+  {
+    "name": "microsecond_precision",
+    "input": "[120:59.123456]你好",
+    "format": "lrc",
+    "text": [
+      "你好"
+    ],
+    "starts": [
+      7259123456
+    ]
+  },
+  {
+    "name": "repeated_lines",
+    "input": "[00:00][00:02.000]Echo",
+    "format": "lrc",
+    "text": [
+      "Echo",
+      "Echo"
+    ],
+    "starts": [
+      0,
+      2000000
+    ]
+  },
+  {
+    "name": "syllables_spaces_gap",
+    "input": "[00:01.00]<00:01.00>bro<00:01.20>ken <00:02.00>chain<00:02.50><00:03.00>!<00:04.00>",
+    "format": "enhanced_lrc",
+    "text": [
+      "broken chain!"
+    ],
+    "starts": [
+      1000000
+    ]
+  },
+  {
+    "name": "unicode_plain",
+    "input": "සිංහල\nمرحبا 👩🏽‍💻\n你好\n",
+    "format": "plain",
+    "text": [
+      "සිංහල",
+      "مرحبا 👩🏽‍💻",
+      "你好",
+      ""
+    ],
+    "starts": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "name": "invalid_seconds",
+    "input": "[00:60.00]bad",
+    "format": "lrc",
+    "error": "INVALID_TIMESTAMP"
+  },
+  {
+    "name": "overflow_minutes",
+    "input": "[9999999999999999999999:00.00]bad",
+    "format": "lrc",
+    "error": "INVALID_TIMESTAMP"
+  },
+  {
+    "name": "unsafe_json_time",
+    "input": "[999999999:00.00]bad",
+    "format": "lrc",
+    "error": "INVALID_TIME"
+  },
+  {
+    "name": "rich_vocals_auxiliary",
+    "format": "json",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "c1",
+          "start_us": 1000000,
+          "end_us": 4000000,
+          "segments": [
+            {
+              "text": "こん",
+              "start_us": 1000000,
+              "end_us": 2000000,
+              "attributes": {},
+              "id": "s1",
+              "language": "ja",
+              "agent_ids": [
+                "a1"
+              ],
+              "roles": [
+                "syllable"
+              ]
+            },
+            {
+              "text": "にちは",
+              "start_us": 2000000,
+              "end_us": null,
+              "attributes": {},
+              "id": "s2"
+            }
+          ],
+          "attributes": {},
+          "language": "ja",
+          "agent_ids": [
+            "a1"
+          ],
+          "roles": [
+            "lead"
+          ]
+        },
+        {
+          "id": "c2",
+          "start_us": 1500000,
+          "end_us": 3000000,
+          "segments": [
+            {
+              "text": "ah",
+              "start_us": 1500000,
+              "end_us": 3000000,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "agent_ids": [
+            "a2"
+          ],
+          "roles": [
+            "background"
+          ],
+          "parent_id": "c1"
+        },
+        {
+          "id": "c3",
+          "start_us": null,
+          "end_us": null,
+          "segments": [
+            {
+              "text": "♪",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {},
+          "roles": [
+            "instrumental"
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "key": "ar",
+          "value": "Example"
+        }
+      ],
+      "attributes": {
+        "source": {
+          "format": "synthetic",
+          "nullable": null
+        }
+      },
+      "language": "ja",
+      "agents": [
+        {
+          "id": "a1",
+          "name": "Alice",
+          "kind": "person",
+          "attributes": {}
+        },
+        {
+          "id": "a2",
+          "name": "Chorus",
+          "kind": "ensemble",
+          "attributes": {}
+        }
+      ],
+      "auxiliary": [
+        {
+          "id": "tr-en",
+          "kind": "translation",
+          "language": "en",
+          "target_ids": [
+            "c1"
+          ],
+          "segments": [
+            {
+              "text": "Hello",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {},
+              "id": "t1"
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "tr-si",
+          "kind": "translation",
+          "language": "si",
+          "target_ids": [
+            "c1"
+          ],
+          "segments": [
+            {
+              "text": "ආයුබෝවන්",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "roman",
+          "kind": "romanization",
+          "language": "ja-Latn",
+          "target_ids": [
+            "s1",
+            "s2"
+          ],
+          "segments": [
+            {
+              "text": "kon",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            },
+            {
+              "text": "nichiwa",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        },
+        {
+          "id": "pron",
+          "kind": "pronunciation",
+          "language": "ja-Hira",
+          "target_ids": [
+            "s2"
+          ],
+          "segments": [
+            {
+              "text": "にちは",
+              "start_us": null,
+              "end_us": null,
+              "attributes": {}
+            }
+          ],
+          "attributes": {}
+        }
+      ]
+    },
+    "text": [
+      "こんにちは",
+      "ah",
+      "♪"
+    ],
+    "starts": [
+      1000000,
+      1500000,
+      null
+    ],
+    "features": {
+      "line_timing": true,
+      "segment_timing": true,
+      "explicit_ends": true,
+      "agents": true,
+      "relationships": true,
+      "languages": [
+        "en",
+        "ja",
+        "ja-Hira",
+        "ja-Latn",
+        "si"
+      ],
+      "roles": [
+        "background",
+        "instrumental",
+        "lead",
+        "syllable"
+      ],
+      "auxiliary_kinds": [
+        "pronunciation",
+        "romanization",
+        "translation"
+      ],
+      "extensions": true
+    },
+    "loss_codes": [
+      "AGENTS_DROPPED",
+      "AUXILIARY_DROPPED",
+      "LANGUAGE_DROPPED",
+      "METADATA_DROPPED",
+      "ATTRIBUTES_DROPPED",
+      "TIMING_DROPPED",
+      "VOCAL_AGENTS_DROPPED",
+      "ROLES_DROPPED",
+      "RELATIONSHIPS_DROPPED",
+      "SEGMENT_IDS_DROPPED",
+      "CUE_IDS_CHANGED"
+    ]
+  },
+  {
+    "name": "unknown_auxiliary_target",
+    "format": "json",
+    "document": {
+      "version": 1,
+      "cues": [],
+      "auxiliary": [
+        {
+          "id": "tr",
+          "kind": "translation",
+          "target_ids": [
+            "missing"
+          ],
+          "segments": []
+        }
+      ]
+    },
+    "error": "UNKNOWN_TARGET"
+  },
+  {
+    "name": "cyclic_vocals",
+    "format": "json",
+    "document": {
+      "version": 1,
+      "cues": [
+        {
+          "id": "c1",
+          "segments": [],
+          "parent_id": "c2"
+        },
+        {
+          "id": "c2",
+          "segments": [],
+          "parent_id": "c1"
+        }
+      ]
+    },
+    "error": "CYCLIC_RELATIONSHIP"
+  },
+  {
+    "name": "ttml relative span",
+    "format": "ttml",
+    "input": "<tt xmlns=\"http://www.w3.org/ns/ttml\"><body><div><p begin=\"1s\" end=\"3s\"><span begin=\"250ms\">世界🙂</span></p></div></body></tt>",
+    "text": [
+      "世界🙂"
+    ],
+    "starts": [
+      1000000
+    ]
+  },
+  {
+    "name": "ttml music absolute",
+    "format": "ttml_lyrics",
+    "input": "<tt xmlns=\"http://www.w3.org/ns/ttml\"><body><div><p begin=\"10s\" end=\"12s\"><span begin=\"10s\" end=\"11s\">සිංහල</span></p></div></body></tt>",
+    "text": [
+      "සිංහල"
+    ],
+    "starts": [
+      10000000
+    ]
+  },
+  {
+    "name": "ttml unsafe dtd",
+    "format": "ttml",
+    "input": "<!DOCTYPE tt><tt xmlns=\"http://www.w3.org/ns/ttml\"/>",
+    "error": "UNSAFE_XML"
+  },
+  {
+    "name": "ttml unsupported frames",
+    "format": "ttml",
+    "input": "<tt xmlns=\"http://www.w3.org/ns/ttml\"><body><div><p begin=\"1f\">x</p></div></body></tt>",
+    "error": "UNSUPPORTED_TTML"
+  },
+  {
+    "name": "ttml rich music model",
+    "input": "<tt xmlns=\"http://www.w3.org/ns/ttml\" xmlns:m=\"http://www.w3.org/ns/ttml#metadata\"><body><div><p xml:id=\"lead\" begin=\"10s\" end=\"12s\"><span begin=\"10s\" end=\"11s\">声</span><span xml:id=\"bg\" m:role=\"x-bg\" begin=\"10.5s\" end=\"11.5s\">echo</span><span xml:id=\"translation\" m:role=\"x-translation\" xml:lang=\"si\" begin=\"10s\" end=\"12s\">හඬ</span></p></div></body></tt>",
+    "format": "ttml_lyrics",
+    "document": {
+      "attributes": {},
+      "auxiliary": [
+        {
+          "attributes": {},
+          "id": "translation",
+          "kind": "translation",
+          "language": "si",
+          "segments": [
+            {
+              "attributes": {},
+              "end_us": 12000000,
+              "start_us": 10000000,
+              "text": "හඬ"
+            }
+          ],
+          "target_ids": [
+            "lead"
+          ]
+        }
+      ],
+      "cues": [
+        {
+          "attributes": {},
+          "end_us": 12000000,
+          "id": "lead",
+          "segments": [
+            {
+              "attributes": {},
+              "end_us": 11000000,
+              "start_us": 10000000,
+              "text": "声"
+            }
+          ],
+          "start_us": 10000000
+        },
+        {
+          "attributes": {},
+          "end_us": 11500000,
+          "id": "bg",
+          "parent_id": "lead",
+          "roles": [
+            "background"
+          ],
+          "segments": [
+            {
+              "attributes": {},
+              "end_us": null,
+              "start_us": null,
+              "text": "echo"
+            }
+          ],
+          "start_us": 10500000
+        }
+      ],
+      "metadata": [],
+      "version": 1
+    },
+    "features": {
+      "agents": false,
+      "auxiliary_kinds": [
+        "translation"
+      ],
+      "explicit_ends": true,
+      "extensions": false,
+      "languages": [
+        "si"
+      ],
+      "line_timing": true,
+      "relationships": true,
+      "roles": [
+        "background"
+      ],
+      "segment_timing": true
+    },
+    "text": [
+      "声",
+      "echo"
+    ],
+    "starts": [
+      10000000,
+      10500000
+    ],
+    "loss_codes": [
+      "AUXILIARY_DROPPED",
+      "CUE_IDS_CHANGED",
+      "RELATIONSHIPS_DROPPED",
+      "ROLES_DROPPED",
+      "TIMING_DROPPED"
+    ]
+  },
+  {
+    "name": "srt unicode multiline overlap",
+    "format": "srt",
+    "input": "7\r\n00:00:01,250 --> 00:00:03,000\r\nසිංහල 👩🏽‍💻\r\n世界\r\n\r\n7\r\n00:00:01,250 --> 00:00:02,000\r\né العربية\r\n",
+    "text": [
+      "සිංහල 👩🏽‍💻\n世界",
+      "é العربية"
+    ],
+    "starts": [
+      1250000,
+      1250000
+    ]
+  },
+  {
+    "name": "srt invalid timestamp",
+    "format": "srt",
+    "input": "1\n00:60:00,000 --> 01:00:00,000\nx",
+    "error": "INVALID_SRT"
+  },
+  {
+    "name": "srt reversed interval",
+    "format": "srt",
+    "input": "1\n00:00:02,000 --> 00:00:01,000\nx",
+    "error": "INVALID_INTERVAL"
+  },
+  {
+    "name": "webvtt rich voice and inline timing",
+    "format": "webvtt",
+    "input": "WEBVTT\n\nverse\n00:01.000 --> 00:04.000 align:start\n<v Alice><lang ja>声<00:02.000>世界</lang></v>\n",
+    "document": {
+      "agents": [
+        {
+          "attributes": {},
+          "id": "V1",
+          "kind": "voice",
+          "name": "Alice"
+        }
+      ],
+      "attributes": {},
+      "cues": [
+        {
+          "attributes": {
+            "webvtt:identifier": "verse",
+            "webvtt:settings": "align:start"
+          },
+          "end_us": 4000000,
+          "id": "L1",
+          "segments": [
+            {
+              "agent_ids": [
+                "V1"
+              ],
+              "attributes": {
+                "webvtt:tags": [
+                  {
+                    "group": 1,
+                    "tag": "v Alice"
+                  },
+                  {
+                    "group": 2,
+                    "tag": "lang ja"
+                  }
+                ]
+              },
+              "end_us": null,
+              "language": "ja",
+              "start_us": null,
+              "text": "声"
+            },
+            {
+              "agent_ids": [
+                "V1"
+              ],
+              "attributes": {
+                "webvtt:tags": [
+                  {
+                    "group": 1,
+                    "tag": "v Alice"
+                  },
+                  {
+                    "group": 2,
+                    "tag": "lang ja"
+                  }
+                ]
+              },
+              "end_us": null,
+              "language": "ja",
+              "start_us": 2000000,
+              "text": "世界"
+            }
+          ],
+          "start_us": 1000000
+        }
+      ],
+      "metadata": [],
+      "version": 1
+    },
+    "features": {
+      "agents": true,
+      "auxiliary_kinds": [],
+      "explicit_ends": true,
+      "extensions": true,
+      "languages": [
+        "ja"
+      ],
+      "line_timing": true,
+      "relationships": false,
+      "roles": [],
+      "segment_timing": true
+    },
+    "text": [
+      "声世界"
+    ],
+    "starts": [
+      1000000
+    ],
+    "loss_codes": [
+      "AGENTS_DROPPED",
+      "ATTRIBUTES_DROPPED",
+      "LANGUAGE_DROPPED",
+      "TIMING_DROPPED",
+      "VOCAL_AGENTS_DROPPED"
+    ]
+  },
+  {
+    "name": "webvtt invalid inline timestamp",
+    "format": "webvtt",
+    "input": "WEBVTT\n\n00:01.000 --> 00:04.000\nx<00:01.000>y",
+    "error": "INVALID_WEBVTT"
+  },
+  {
+    "name": "webvtt unknown markup",
+    "format": "webvtt",
+    "input": "WEBVTT\n\n00:01.000 --> 00:04.000\n<script>x</script>",
+    "error": "UNSUPPORTED_WEBVTT"
+  },
+  {
+    "name": "canonical voice and language WebVTT export",
+    "format": "json",
+    "document": {
+      "agents": [
+        {
+          "attributes": {},
+          "id": "V1",
+          "kind": "voice",
+          "name": "Alice"
+        }
+      ],
+      "attributes": {},
+      "cues": [
+        {
+          "attributes": {},
+          "end_us": 4000000,
+          "id": "L1",
+          "segments": [
+            {
+              "agent_ids": [
+                "V1"
+              ],
+              "attributes": {},
+              "end_us": null,
+              "language": "ja",
+              "start_us": 1500000,
+              "text": "声"
+            },
+            {
+              "agent_ids": [
+                "V1"
+              ],
+              "attributes": {},
+              "end_us": null,
+              "language": "ja",
+              "start_us": 2000000,
+              "text": "世界"
+            }
+          ],
+          "start_us": 1000000
+        }
+      ],
+      "metadata": [],
+      "version": 1
+    },
+    "features": {
+      "agents": true,
+      "auxiliary_kinds": [],
+      "explicit_ends": true,
+      "extensions": false,
+      "languages": [
+        "ja"
+      ],
+      "line_timing": true,
+      "relationships": false,
+      "roles": [],
+      "segment_timing": true
+    },
+    "text": [
+      "声世界"
+    ],
+    "starts": [
+      1000000
+    ],
+    "loss_codes": [
+      "AGENTS_DROPPED",
+      "LANGUAGE_DROPPED",
+      "TIMING_DROPPED",
+      "VOCAL_AGENTS_DROPPED"
+    ],
+    "exports": [
+      {
+        "format": "webvtt",
+        "policy": "strict",
+        "output": "WEBVTT\n\n00:00:01.000 --> 00:00:04.000\n<v Alice><lang ja><00:00:01.500>声<00:00:02.000>世界</lang></v>\n\n"
+      }
+    ]
+  },
+  {
+    "name": "srt rejects colon before milliseconds",
+    "format": "srt",
+    "input": "1\n00:00:01:000 --> 00:00:02,000\nvoice",
+    "error": "INVALID_SRT"
+  },
+  {
+    "name": "webvtt rejects colon before milliseconds",
+    "format": "webvtt",
+    "input": "WEBVTT\n\n00:01:000 --> 00:02.000\nvoice",
+    "error": "INVALID_WEBVTT"
+  },
+  {
+    "name": "webvtt rejects misplaced inline timestamp separators",
+    "format": "webvtt",
+    "input": "WEBVTT\n\n00:00.000 --> 00:04.000\nfirst <00.01.000>second",
+    "error": "INVALID_WEBVTT"
+  }
+]

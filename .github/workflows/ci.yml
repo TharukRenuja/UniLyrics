@@ -1,0 +1,113 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  desktop:
+    name: Desktop (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025, macos-15]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+      - name: Prepare Rust
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup default stable
+          cargo fetch --locked
+      - name: Rust formatting and lint
+        run: |
+          cargo fmt --all --check
+          cargo clippy --locked --offline --workspace --all-targets -- -D warnings
+      - name: Runner regression tests
+        run: python -B scripts/test_ci_desktop.py
+      - name: Native Rust, Python and .NET tests
+        run: python -B scripts/check_ci_desktop.py
+      - name: Mac C/C++ and Swift tests
+        if: runner.os == 'macOS'
+        run: python -B scripts/check_macos.py
+      - name: Retain host logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: host-logs-${{ matrix.os }}
+          path: target/host-checks/
+          if-no-files-found: ignore
+          retention-days: 14
+  android:
+    name: Android ARM64 and x86_64 native build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Prepare Rust targets and NDK
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup target add aarch64-linux-android x86_64-linux-android
+          sdkmanager 'ndk;28.2.13676358'
+          cargo fetch --locked
+      - name: Build native engine and JNI for API 29
+        shell: bash
+        run: |
+          set -euo pipefail
+          tools="$ANDROID_HOME/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin"
+          export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$tools/aarch64-linux-android29-clang"
+          export CARGO_TARGET_X86_64_LINUX_ANDROID_LINKER="$tools/x86_64-linux-android29-clang"
+          for target in aarch64-linux-android x86_64-linux-android; do
+            cargo build --locked --offline --release -p unilyrics-ffi --target "$target"
+            "$tools/${target}29-clang" -shared -fPIC -Wall -Wextra -Werror bindings/java/native/unilyrics_jni.c -L"target/$target/release" -lunilyrics_ffi -o "target/$target/release/libunilyrics_jni.so"
+          done
+  ios:
+    name: iOS device and simulator native build
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Prepare Rust targets
+        run: |
+          xcodebuild -version
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup target add aarch64-apple-ios aarch64-apple-ios-sim
+          cargo fetch --locked
+      - name: Build device and simulator libraries
+        run: |
+          set -euo pipefail
+          for target in aarch64-apple-ios aarch64-apple-ios-sim; do
+            cargo build --locked --offline --release -p unilyrics-ffi --target "$target"
+          done
+  required:
+    name: Required checks
+    if: always()
+    needs: [desktop, android, ios]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every platform job to pass
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: python3 -c 'import json,os; results=json.loads(os.environ["RESULTS"]); assert all(job["result"] == "success" for job in results.values()), results'
